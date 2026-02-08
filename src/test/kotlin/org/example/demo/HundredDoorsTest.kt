@@ -3,6 +3,7 @@ package org.example.demo
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.TestMethodOrder
+import kotlin.math.sqrt
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertFalse
@@ -60,5 +61,20 @@ class HundredDoorsTest {
         assertTrue(hundredDoors.doors[9].opened)
         assertTrue(hundredDoors.doors[14].opened)
         assertFalse(hundredDoors.doors[19].opened)
+    }
+
+    @Test
+    @Order(7)
+    fun `last visit only perfect squares opened`() {
+        hundredDoors.visit(100)
+
+        hundredDoors.doors.forEach { door ->
+            val sqrt = sqrt(door.index.toDouble())
+            if (sqrt == sqrt.toInt().toDouble()) {
+                assertTrue(door.opened, "Door ${door.index} should be open")
+            } else {
+                assertFalse(door.opened, "Door ${door.index} should be closed")
+            }
+        }
     }
 }
