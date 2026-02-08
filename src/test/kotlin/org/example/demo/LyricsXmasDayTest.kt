@@ -19,7 +19,7 @@ class LyricsXmasDayTest {
                 On the first day of Christmas
                 My true love gave to me:
             """,
-            lyrics.verse(1)
+            lyrics.verseHeader(1)
         )
     }
 
@@ -30,7 +30,7 @@ class LyricsXmasDayTest {
                 On the second day of Christmas
                 My true love gave to me:
             """,
-            lyrics.verse(2)
+            lyrics.verseHeader(2)
         )
     }
 
@@ -41,7 +41,45 @@ class LyricsXmasDayTest {
                 On the ninth day of Christmas
                 My true love gave to me:
             """,
-            lyrics.verse(9)
+            lyrics.verseHeader(9)
+        )
+    }
+
+    @Test
+    fun `specific line for first verse`() {
+        assertVerse(
+            """
+                A partridge in a pear tree.
+            """,
+            lyrics.verseBody(1)
+        )
+    }
+
+    @Test
+    fun `specific line for second verse`() {
+        assertVerse(
+            """
+                Two turtle doves and
+                A partridge in a pear tree.
+            """,
+            lyrics.verseBody(2)
+        )
+    }
+
+    @Test
+    fun `specific line for any verse`() {
+        assertVerse(
+            """
+                Eight maids a-milking
+                Seven swans a-swimming
+                Six geese a-laying
+                Five golden rings
+                Four calling birds
+                Three french hens
+                Two turtle doves and
+                A partridge in a pear tree.
+            """,
+            lyrics.verseBody(8)
         )
     }
 }
