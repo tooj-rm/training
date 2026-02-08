@@ -82,6 +82,46 @@ class LyricsXmasDayTest {
             lyrics.verseBody(8)
         )
     }
+
+    @Test
+    fun `whole first verse`() {
+        assertVerse(
+            """
+                On the first day of Christmas
+                My true love gave to me:
+                A partridge in a pear tree.
+            """,
+            lyrics.verse(1)
+        )
+    }
+
+    @Test
+    fun `whole second verse`() {
+        assertVerse(
+            """
+                On the second day of Christmas
+                My true love gave to me:
+                Two turtle doves and
+                A partridge in a pear tree.
+            """,
+            lyrics.verse(2)
+        )
+    }
+
+    @Test
+    fun `whole any verse`() {
+        assertVerse(
+            """
+                On the fourth day of Christmas
+                My true love gave to me:
+                Four calling birds
+                Three french hens
+                Two turtle doves and
+                A partridge in a pear tree.
+            """,
+            lyrics.verse(4)
+        )
+    }
 }
 
 private fun assertVerse(expected: String, actual: String) {
