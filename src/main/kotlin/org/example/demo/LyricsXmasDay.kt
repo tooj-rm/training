@@ -2,6 +2,10 @@ package org.example.demo
 
 class LyricsXmasDay {
     fun verse(verseNumber: Int): String {
+        return verseHeader(verseNumber)
+    }
+
+    private fun verseHeader(verseNumber: Int): String {
         val verses = listOf(
             "first",
             "second",
