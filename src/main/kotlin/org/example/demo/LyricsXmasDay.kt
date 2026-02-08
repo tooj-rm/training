@@ -2,15 +2,23 @@ package org.example.demo
 
 class LyricsXmasDay {
     fun verse(verseNumber: Int): String {
-        if(verseNumber == 2) {
-            return """
-                On the second day of Christmas
-                My true love gave to me:
-            """
-        }
+        val verses = listOf(
+            "first",
+            "second",
+            "third",
+            "fourth",
+            "fifth",
+            "sixth",
+            "seventh",
+            "eighth",
+            "ninth",
+            "tenth",
+            "eleventh",
+            "twelfth"
+        )
 
         return """
-                On the first day of Christmas
+                On the ${verses[verseNumber - 1]} day of Christmas
                 My true love gave to me:
             """
     }
