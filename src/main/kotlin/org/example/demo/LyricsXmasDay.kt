@@ -50,4 +50,15 @@ class LyricsXmasDay {
             .reversed()
             .joinToString("\n")
     }
+
+    fun print(): String {
+        var lyrics = ""
+
+        for (verseNumber in 1..12) {
+            lyrics += verse(verseNumber)
+            lyrics += "\n\n"
+        }
+
+        return lyrics
+    }
 }

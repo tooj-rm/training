@@ -3,6 +3,7 @@ package org.example.demo
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class LyricsXmasDayTest {
     lateinit var lyrics: LyricsXmasDay
@@ -121,6 +122,18 @@ class LyricsXmasDayTest {
             """,
             lyrics.verse(4)
         )
+    }
+
+    @Test
+    fun `whole lyrics`() {
+        val expected = listOf(
+            "Six geese a-laying",
+            "Eight maids a-milking",
+            "On the twelfth day of Christmas,"
+        )
+        val lyrics = lyrics.print()
+
+        assertTrue { expected.any { it in lyrics } }
     }
 }
 
