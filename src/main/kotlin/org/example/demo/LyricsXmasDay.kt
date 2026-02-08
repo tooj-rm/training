@@ -24,6 +24,6 @@ class LyricsXmasDay {
         return """
                 On the ${verses[verseNumber - 1]} day of Christmas
                 My true love gave to me:
-            """
+            """.trimIndent()
     }
 }

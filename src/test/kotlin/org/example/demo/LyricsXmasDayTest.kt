@@ -14,7 +14,7 @@ class LyricsXmasDayTest {
 
     @Test
     fun `first two lines of first verse`() {
-        assertEquals(
+        assertVerse(
             """
                 On the first day of Christmas
                 My true love gave to me:
@@ -25,7 +25,7 @@ class LyricsXmasDayTest {
 
     @Test
     fun `first two lines of second verse`() {
-        assertEquals(
+        assertVerse(
             """
                 On the second day of Christmas
                 My true love gave to me:
@@ -36,7 +36,7 @@ class LyricsXmasDayTest {
 
     @Test
     fun `first two lines of any verse`() {
-        assertEquals(
+        assertVerse(
             """
                 On the ninth day of Christmas
                 My true love gave to me:
@@ -44,4 +44,8 @@ class LyricsXmasDayTest {
             lyrics.verse(9)
         )
     }
+}
+
+private fun assertVerse(expected: String, actual: String) {
+    assertEquals(expected.trimIndent(), actual)
 }
