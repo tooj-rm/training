@@ -22,4 +22,15 @@ class LyricsXmasDayTest {
             lyrics.verse(1)
         )
     }
+
+    @Test
+    fun `first two lines of second verse`() {
+        assertEquals(
+            """
+                On the second day of Christmas
+                My true love gave to me:
+            """,
+            lyrics.verse(2)
+        )
+    }
 }
