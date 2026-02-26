@@ -95,6 +95,20 @@ class Yatzy() {
             return if(fourOfAKind.size != 1) 0 else fourOfAKind.sumOf { it * 4 }
         }
 
+        if(category == Category.FullHouse) {
+            val threeOfAKind = input.counts
+                .filter { it.value == 3 }
+                .keys
+                .firstOrNull()
+
+            val pair = input.counts
+                .filter { it.value == 2 }
+                .keys
+                .firstOrNull()
+
+            return if(threeOfAKind == null || pair == null) 0 else input.dice.sum()
+        }
+
         return input.dice.sum()
     }
 }

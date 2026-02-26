@@ -126,4 +126,19 @@ class YatzyTest {
         // Then
         assertEquals(expected, score)
     }
+
+    @ParameterizedTest
+    @CsvSource(
+        "'1,1,2,2,2',8",
+        "'2,2,3,3,4',0",
+        "'4,4,4,4,4',0",
+    )
+    fun fullHouse(input: String, expected: Int) {
+        // Given / When
+        val yatzy = Yatzy()
+        val score = yatzy.score(input, Category.FullHouse)
+
+        // Then
+        assertEquals(expected, score)
+    }
 }
