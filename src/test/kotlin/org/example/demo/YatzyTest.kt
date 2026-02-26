@@ -80,4 +80,20 @@ class YatzyTest {
         // Then
         assertEquals(expected, score)
     }
+
+    @ParameterizedTest
+    @CsvSource(
+        "'1,1,2,3,3',8",
+        "'1,1,2,3,4',0",
+        "'1,1,2,2,2',6",
+        "'3,3,3,3,1',0",
+    )
+    fun twoPairs(input: String, expected: Int) {
+        // Given / When
+        val yatzy = Yatzy()
+        val score = yatzy.score(input, Category.TwoPairs)
+
+        // Then
+        assertEquals(expected, score)
+    }
 }

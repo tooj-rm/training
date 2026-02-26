@@ -64,14 +64,19 @@ class Yatzy() {
 
         if (category == Category.Pair) {
             val pair = input.counts
-                .mapValues { it.value }
                 .filter { it.value >= 2 }
                 .keys
                 .sortedByDescending { it }
-                .stream()
-                .findFirst()
-                .orElse(0)
+                .getOrElse(0) { 0 }
             return pair * 2
+        }
+
+        if(category == Category.TwoPairs) {
+            val twoPairs = input.counts
+                .filter { it.value >= 2 }
+                .keys
+
+            return if(twoPairs.size != 2) 0 else twoPairs.sumOf { it * 2 }
         }
 
         return input.dice.sum()
