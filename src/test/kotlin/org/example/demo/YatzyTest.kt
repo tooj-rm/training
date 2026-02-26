@@ -96,4 +96,34 @@ class YatzyTest {
         // Then
         assertEquals(expected, score)
     }
+
+    @ParameterizedTest
+    @CsvSource(
+        "'3,3,3,4,5',9",
+        "'3,3,4,5,6',0",
+        "'3,3,3,3,1',9",
+    )
+    fun threeOfAKind(input: String, expected: Int) {
+        // Given / When
+        val yatzy = Yatzy()
+        val score = yatzy.score(input, Category.ThreeOfAKind)
+
+        // Then
+        assertEquals(expected, score)
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "'2,2,2,2,5',8",
+        "'2,2,2,5,5',0",
+        "'2,2,2,2,2',8",
+    )
+    fun fourOfAKind(input: String, expected: Int) {
+        // Given / When
+        val yatzy = Yatzy()
+        val score = yatzy.score(input, Category.FourOfAKind)
+
+        // Then
+        assertEquals(expected, score)
+    }
 }

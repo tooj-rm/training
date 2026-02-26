@@ -79,6 +79,22 @@ class Yatzy() {
             return if(twoPairs.size != 2) 0 else twoPairs.sumOf { it * 2 }
         }
 
+        if(category == Category.ThreeOfAKind) {
+            val threeOfAKind = input.counts
+                .filter { it.value >= 3 }
+                .keys
+
+            return if(threeOfAKind.size != 1) 0 else threeOfAKind.sumOf { it * 3 }
+        }
+
+        if(category == Category.FourOfAKind) {
+            val fourOfAKind = input.counts
+                .filter { it.value >= 4 }
+                .keys
+
+            return if(fourOfAKind.size != 1) 0 else fourOfAKind.sumOf { it * 4 }
+        }
+
         return input.dice.sum()
     }
 }
