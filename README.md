@@ -4,3 +4,4 @@
 - [ABC Problem](docs/abc-problem.md)
 - [100 Doors](docs/100-doors.md)
 - [Balanced parentheses](docs/balanced-parentheses.md)
+- [yatzy](docs/yatzy.md)
