@@ -1,114 +1,106 @@
 package org.example.demo
 
 enum class Category {
-    Chance,
-    Yatzy,
-    Ones,
-    Twos,
-    Threes,
-    Fours,
-    Fives,
-    Sixes,
-    Pair,
-    TwoPairs,
-    ThreeOfAKind,
-    FourOfAKind,
-    SmallStraight,
-    LargeStraight,
-    FullHouse
+    Chance {
+        override fun score(input: RollInput) = input.dice.sum()
+    },
+
+    Yatzy {
+        override fun score(input: RollInput) =
+            if (input.counts.values.any { it == 5 }) 50 else 0
+    },
+
+    Ones {
+        override fun score(input: RollInput) = input.sumOf(1)
+    },
+
+    Twos {
+        override fun score(input: RollInput) = input.sumOf(2)
+    },
+
+    Threes {
+        override fun score(input: RollInput) = input.sumOf(3)
+    },
+
+    Fours {
+        override fun score(input: RollInput) = input.sumOf(4)
+    },
+
+    Fives {
+        override fun score(input: RollInput) = input.sumOf(5)
+    },
+
+    Sixes {
+        override fun score(input: RollInput) = input.sumOf(6)
+    },
+
+    Pair {
+        override fun score(input: RollInput) =
+            input.highestOfAKind(2)?.times(2) ?: 0
+    },
+
+    TwoPairs {
+        override fun score(input: RollInput): Int {
+            val pairs = input.counts
+                .filter { it.value >= 2 }
+                .keys
+                .sortedDescending()
+
+            return if (pairs.size >= 2) pairs.take(2).sumOf { it * 2 } else 0
+        }
+    },
+
+    ThreeOfAKind {
+        override fun score(input: RollInput) =
+            input.highestOfAKind(3)?.times(3) ?: 0
+    },
+
+    FourOfAKind {
+        override fun score(input: RollInput) =
+            input.highestOfAKind(4)?.times(4) ?: 0
+    },
+
+    SmallStraight {
+        override fun score(input: RollInput) =
+            if (input.dice.sorted() == listOf(1, 2, 3, 4, 5)) 15 else 0
+    },
+
+    LargeStraight {
+        override fun score(input: RollInput) =
+            if (input.dice.sorted() == listOf(2, 3, 4, 5, 6)) 20 else 0
+    },
+
+    FullHouse {
+        override fun score(input: RollInput): Int {
+            val hasThree = input.counts.values.any { it == 3 }
+            val hasTwo = input.counts.values.any { it == 2 }
+            return if (hasThree && hasTwo) input.dice.sum() else 0
+        }
+    };
+
+    abstract fun score(input: RollInput): Int
 }
 
 data class RollInput(
     val input: String,
     val category: Category,
 ) {
-    val dice: List<Int> = input.split(',').map { it.toInt() }
+    val dice: List<Int> = input.split(",").map { it.trim().toInt() }
 
     val counts: Map<Int, Int> = dice.groupingBy { it }.eachCount()
+
+    fun sumOf(value: Int) = (counts[value] ?: 0) * value
+
+    fun highestOfAKind(n: Int): Int? =
+        counts
+            .filter { it.value >= n }
+            .keys
+            .maxOrNull()
 }
 
-class Yatzy() {
+class Yatzy {
     fun score(inputLine: String, category: Category): Int {
         val input = RollInput(inputLine, category)
-        if (category == Category.SmallStraight && !input.dice.stream().allMatch { it in 1..5 }) {
-            return 0
-        }
-
-        if (category == Category.LargeStraight && !input.dice.stream().allMatch { it in 2..6 }) {
-            return 0
-        }
-
-        if (category == Category.Ones) {
-            return input.counts[1] ?: 0
-        }
-
-        if (category == Category.Twos) {
-            return (input.counts[2] ?: 0) * 2
-        }
-
-        if (category == Category.Threes) {
-            return (input.counts[3] ?: 0) * 3
-        }
-
-        if (category == Category.Fours) {
-            return (input.counts[4] ?: 0) * 4
-        }
-
-        if (category == Category.Fives) {
-            return (input.counts[5] ?: 0) * 5
-        }
-
-        if (category == Category.Sixes) {
-            return (input.counts[6] ?: 0) * 6
-        }
-
-        if (category == Category.Pair) {
-            val pair = input.counts
-                .filter { it.value >= 2 }
-                .keys
-                .sortedByDescending { it }
-                .getOrElse(0) { 0 }
-            return pair * 2
-        }
-
-        if(category == Category.TwoPairs) {
-            val twoPairs = input.counts
-                .filter { it.value >= 2 }
-                .keys
-
-            return if(twoPairs.size != 2) 0 else twoPairs.sumOf { it * 2 }
-        }
-
-        if(category == Category.ThreeOfAKind) {
-            val threeOfAKind = input.counts
-                .filter { it.value >= 3 }
-                .keys
-
-            return if(threeOfAKind.size != 1) 0 else threeOfAKind.sumOf { it * 3 }
-        }
-
-        if(category == Category.FourOfAKind) {
-            val fourOfAKind = input.counts
-                .filter { it.value >= 4 }
-                .keys
-
-            return if(fourOfAKind.size != 1) 0 else fourOfAKind.sumOf { it * 4 }
-        }
-
-        if(category == Category.FullHouse) {
-            val threeOfAKind = input.counts
-                .filter { it.value == 3 }
-                .keys
-                .firstOrNull()
-
-            val pair = input.counts
-                .filter { it.value == 2 }
-                .keys
-                .firstOrNull()
-
-            return if(threeOfAKind == null || pair == null) 0 else input.dice.sum()
-        }
-
-        return input.dice.sum()
+        return category.score(input)
     }
 }
