@@ -46,4 +46,20 @@ class YatzyTest {
         // Then
         assertEquals(expected, score)
     }
+
+    @ParameterizedTest
+    @CsvSource(
+        "'1,1,2,4,4',Fours,8",
+        "'2,3,2,5,1',Twos,4",
+        "'3,3,3,4,5',Ones,0",
+    )
+    fun `ones, twos, threes, fours, fives, sixes`(input: String, catLabel: String, expected: Int) {
+        // Given / When
+        val category = Category.valueOf(catLabel)
+        val yatzy = Yatzy()
+        val score = yatzy.score(input, category)
+
+        // Then
+        assertEquals(expected, score)
+    }
 }
