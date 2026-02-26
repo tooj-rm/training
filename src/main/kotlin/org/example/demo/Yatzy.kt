@@ -28,6 +28,14 @@ data class RollInput(
 class Yatzy() {
     fun score(inputLine: String, category: Category): Int {
         val input = RollInput(inputLine, category)
+        if (category == Category.SmallStraight && !input.dice.stream().allMatch { it in 1..5 }) {
+            return 0
+        }
+
+        if (category == Category.LargeStraight && !input.dice.stream().allMatch { it in 2..6 }) {
+            return 0
+        }
+
         return input.dice.sum()
     }
 }
