@@ -18,14 +18,16 @@ enum class Category {
     FullHouse
 }
 
-class Yatzy(
-    val d1: Int,
-    val d2: Int,
-    val d3: Int,
-    val d4: Int,
-    val d5: Int
+data class RollInput(
+    val input: String,
+    val category: Category,
 ) {
-    fun score(category: Category): Int {
-        return d1 + d2 + d3 + d4 + d5
+    val dice: List<Int> = input.split(',').map { it.toInt() }
+}
+
+class Yatzy() {
+    fun score(inputLine: String, category: Category): Int {
+        val input = RollInput(inputLine, category)
+        return input.dice.sum()
     }
 }
