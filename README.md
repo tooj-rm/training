@@ -5,3 +5,4 @@
 - [100 Doors](docs/100-doors.md)
 - [Balanced parentheses](docs/balanced-parentheses.md)
 - [yatzy](docs/yatzy.md)
+- [Audit](docs/audit.md)

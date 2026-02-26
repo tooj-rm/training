@@ -15,6 +15,9 @@ dependencies {
     val junitVersion = "5.10.2"
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
+
+    val mockkVersion = "1.14.9"
+    testImplementation("io.mockk:mockk:$mockkVersion")
 }
 
 tasks.test {
