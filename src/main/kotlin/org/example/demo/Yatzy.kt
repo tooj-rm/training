@@ -62,6 +62,18 @@ class Yatzy() {
             return (input.counts[6] ?: 0) * 6
         }
 
+        if (category == Category.Pair) {
+            val pair = input.counts
+                .mapValues { it.value }
+                .filter { it.value >= 2 }
+                .keys
+                .sortedByDescending { it }
+                .stream()
+                .findFirst()
+                .orElse(0)
+            return pair * 2
+        }
+
         return input.dice.sum()
     }
 }
